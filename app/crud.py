@@ -37,6 +37,16 @@ def read_workout(db: Session, workout_id: int) -> models.Workout:
         .first()
     )
 
+def read_all_workouts(db: Session, skip: int = 0, limit: int = 10) -> list[models.Workout]:
+    return(
+        db.query(models.Workout)
+        .order_by(models.Workout.started_at.desc())
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
+
+
 #--U--
 
 def update_workout(db: Session, workout_id: int) -> models.Workout:

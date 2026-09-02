@@ -58,3 +58,7 @@ class WorkoutRead(WorkoutBase):
     model_config = ConfigDict(from_attributes=True)
     id: int
     exercises: list[ExerciseRead] = Field(default_factory = list)
+
+class WorkoutReadLightScheme(WorkoutBase):
+    model_config = ConfigDict(from_attributes = True)
+    id: int
