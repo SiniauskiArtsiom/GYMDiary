@@ -23,6 +23,15 @@ def finish_workout(workout_id: int, finish_data: schemas.WorkoutFinish, db: Sess
         raise HTTPException(status_code = 404, detail = "Workout not found")
     return workout
 
+
+@router.get("/", response_model = list[schemas.WorkoutReadLightScheme])
+def read_all_workouts(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+    workouts = crud.read_all_workouts(db, skip, limit)
+    if not workouts:
+        return []
+    return workouts
+
+
 @router.get("/{workout_id}", response_model = schemas.WorkoutRead)
 def read_workout(workout_id: int, db: Session = Depends(get_db)):
     workout = crud.read_workout(db, workout_id)
